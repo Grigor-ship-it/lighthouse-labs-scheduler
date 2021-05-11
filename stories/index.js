@@ -4,12 +4,17 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import "index.scss";
+import "components/Appointment/index"
 
 import Button from "components/Button";
 import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
 import InterviewerListItem from "components/InterviewerListItem.jsx";
 import InterviewerList from "components/interviewerList"
+import Appointment from "components/Appointment/index"
+import Header from "components/Appointment/header"
+import Empty from "components/Appointment/empty"
+
 
 storiesOf("Button", module)
   .addParameters({
@@ -97,7 +102,7 @@ storiesOf("Button", module)
           id={interviewer.id}
           name={interviewer.name}
           avatar={interviewer.avatar}
-          setInterviewer={action("setInterviewer")}
+          setInterviewer={event => action("setInterviewer")(interviewer.id)}
         />
       ));
 
@@ -126,4 +131,13 @@ storiesOf("Button", module)
             interviewer={3}
             setInterviewer={action("setInterviewer")}
           />
-        ));
+        ))
+
+        storiesOf("Appointment", module)
+        .addParameters({
+          backgrounds: [{ name: "white", value: "#fff", default: true }]
+        })
+        .add("Appointment", () => <Appointment />)
+        .add("Appointment with Time", () => <Appointment time="12pm" />)
+        .add("Header", () => <Header time="12pm" />)
+        .add("Empty", () => <Empty onAdd={action("onAdd")} />)
