@@ -18,6 +18,7 @@ import Show from "components/Appointment/show"
 import Confirm from "components/Appointment/confirm"
 import Status from "components/Appointment/status"
 import Error from "components/Appointment/error"
+import Form from "components/Appointment/form"
 
 
 storiesOf("Button", module)
@@ -125,15 +126,15 @@ storiesOf("Button", module)
         .add("Initial", () => (
           <InterviewerList
             interviewers={interviewers}
-            setInterviewer={action("setInterviewer")}
+            onChange={action("setInterviewer")}
                    
           />
         ))
         .add("Preselected", () => (
           <InterviewerList
             interviewers={interviewers}
-            interviewer={3}
-            setInterviewer={action("setInterviewer")}
+            value={3}
+            onChange={action("setInterviewer")}
           />
         ))
 
@@ -149,3 +150,5 @@ storiesOf("Button", module)
         .add("Confirm", () => <Confirm message="Delete the appointment?" onConfirm={action("onConfirm")} onCancel={action("onCancel")} />)
         .add("Status", () => <Status message="Deleting" />)
         .add("Error", () => <Error message="Could not delete appointment." onClose={action("onClose")} />)
+        .add("Edit", () => <Form name="string" interviewers={interviewers} interviewer={interviewers.id} onSave={action("onSave")} onCancel={action("onCancel")} />)
+        .add("Create", () => <Form interviewers={interviewers} onSave={action("onSave")} onCancel={action("onCancel")}/>)
