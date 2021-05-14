@@ -67,9 +67,9 @@ export default function getAppointmentsForDay(state, day) {
 
 export function getInterview(state, appointmentID) {
 
+  console.log(Array.isArray(state.interviewers))
   
-
-  if (!appointmentID) {
+  if (appointmentID === null) {
     
     return null
   } else {
@@ -83,12 +83,37 @@ export function getInterview(state, appointmentID) {
     }
 
   appointmentObj.student = appointmentID.student
-  appointmentObj.interviewer = state.interviewers[interviewID] 
+  
+  appointmentObj.interviewer = state.interviewers[interviewID]
 
   return appointmentObj
   }
 }
 
+export function getInterviewersForDay(state, day) {
+  
+
+  let finalResult = []
+  let interviewerResult = []
+  
+  for (let element of state.days) {
+   if (element.name === day) {
+    interviewerResult= [...element.interviewers]
+   }  
+}
+  
+  for (let id in state.interviewers){
+    
+     if (interviewerResult.includes(Number(id))) {
+
+      finalResult.push(state.interviewers[id])
+     }
+  }
+
+
+  return finalResult
+
+}
 //getInterview(state, state.appointments["3"].interview)
    
 
