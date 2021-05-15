@@ -3,7 +3,9 @@ import React from "react";
 
 export default function Show(props) {
 
-  
+  if (!props.interviewer) {
+    return null
+  } 
 
 return(
 <main className="appointment__card appointment__card--show">
@@ -26,7 +28,7 @@ return(
         className="appointment__actions-button"
         src="images/trash.png"
         alt="Delete"
-        onClick={props.onDelete}
+        onClick={() => props.onDelete([props.interviewer.name, props.student, props.id, props.time])}
       />
     </section>
   </section>

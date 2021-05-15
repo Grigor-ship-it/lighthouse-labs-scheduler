@@ -5,6 +5,7 @@ import Show from "components/Appointment/show"
 import UseVisualMode from "hooks/useVisualMode"
 import Form from "components/Appointment/form"
 import Status from "components/Appointment/status"
+import Confirm from "components/Appointment/confirm"
 
 import "components/Appointment/styles.scss";
 
@@ -13,6 +14,7 @@ const SHOW = "SHOW";
 const CREATE = "CREATE";
 const CONFIRM = "CONFIRM"
 const SAVING = "SAVING"
+const DELETING = "DELETING"
 
 
 export default function Appointment(props) {
@@ -25,38 +27,52 @@ export default function Appointment(props) {
   );
 
   useEffect(() => {
-    props.interview ? transition(SHOW) : transition(EMPTY)
+    props.interview ? transition(SHOW) : transition(EMPTY, true)
   }, [props.interview])
 
   function save(name, interviewer) {
     transition(SAVING)
-    const interview = {
+    let interview = {
       student: name,
       interviewer
     };
     
+    
     props.bookInterview(props.id,interview)
+    
+  }
+
+ 
+
+  function confirmDelete(name, interviewer) {
+    transition(DELETING)
+    const interview = {
+      student: name,
+      interviewer
+    };
+     
+  
+   props.deleteInterview(props.id, interview)
    
   }
-
-  function deleteInterview(test) {
-
-  }
-
  
    
     return (
       
       <article className="appointment">
       <Header time={props.time}/>
+      {mode === CONFIRM && <Confirm message={"Are you sure you want to delete?"} onCancel={() => back(SHOW)} onConfirm={confirmDelete}/>}
       {mode === SAVING && <Status message={"Saving"}/>}
+      {mode === DELETING && <Status message={"Deleting"}/>}
       {mode === CREATE && <Form interviewers={props.interviewers} onSave={save} onCancel={() => back(EMPTY)}/>}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} onCancel={() => back()}/>}
 {mode === SHOW && (
   <Show
+    id={props.id}
+    time={props.time}
     student={props.interview.student}
     interviewer={props.interview.interviewer}
-    
+    onDelete={confirmDelete}
   />
 )}
       </article>
