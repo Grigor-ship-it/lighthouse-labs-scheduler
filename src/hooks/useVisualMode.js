@@ -11,7 +11,7 @@ export default function UseVisualMode(initial) {
     if (replace) {
       newHistory.pop()
       }
-    
+    console.log(newMode)
     newHistory.push(newMode)
     setMode(newMode)
     setHistory(newHistory)
