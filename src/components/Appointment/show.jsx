@@ -22,7 +22,7 @@ return(
         className="appointment__actions-button"
         src="images/edit.png"
         alt="Edit"
-        onClick={props.onEdit}
+        onClick={() => props.onEdit([props.interviewer.name, props.student])}
       />
       <img
         className="appointment__actions-button"
