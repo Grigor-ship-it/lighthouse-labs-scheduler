@@ -12,16 +12,20 @@ const reset = () => {
   setInterviewer(null)
 }
 
-
-
 const cancel = () => {
   reset()
   
 }
 
 
-  const [name, setName] = useState(props.name || "");
-  const [interviewer, setInterviewer] =  useState(props.interviewer || null)
+const [name, setName] = useState(props.name || "");
+const [interviewer, setInterviewer] =  useState(props.interviewer || null)
+
+
+ 
+
+
+
 
 return(
 <main className="appointment__card appointment__card--create">
@@ -43,7 +47,7 @@ return(
   </section>
   <section className="appointment__card-right">
     <section className="appointment__actions">
-      <Button danger onClick={() => props.onCancel(cancel())}>Cancel</Button>
+      <Button danger onClick={() => props.onCancel(cancel())}>Cancel</Button>     
       <Button confirm onClick={() => props.onSave(name, interviewer)} onSubmit={event => event.preventDefault()}>Save</Button>
     </section>
   </section>

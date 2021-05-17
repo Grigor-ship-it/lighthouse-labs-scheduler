@@ -7,6 +7,7 @@ import useApplicationData from "hooks/useApplicationData"
 
 
 
+
 import "components/Appointment/"
 import "components/Application.scss";
 
@@ -17,7 +18,7 @@ import "components/Application.scss";
 export default function Application(props) {
 
   
-
+  
   const {
     state,
     setDay,
@@ -25,7 +26,7 @@ export default function Application(props) {
     deleteInterview
   } = useApplicationData();
 
-
+  
   // const [state, setState] = useState({
   //   day: "Monday",
   //   days: [],
@@ -150,7 +151,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {appointments}
-        <Appointment key="last" time="6pm" />
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );

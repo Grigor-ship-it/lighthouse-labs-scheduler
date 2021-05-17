@@ -4,8 +4,10 @@ import axios from 'axios';
 const ERROR_SAVE = "ERROR_SAVE"
 const ERROR_DELETE = "ERROR_DELETE"
 
-export default function useApplicationData() {
+export default function useApplicationData(props) {
 
+ 
+  
   const setDay = day => setState({ ...state, day });
 
   const [state, setState] = useState({
@@ -14,6 +16,11 @@ export default function useApplicationData() {
     appointments: {},
     interviewers: {}
   });
+
+  console.log(state.day)
+  console.log(state.days)
+  console.log(state.appointments)
+
 
   useEffect(() => {
     
@@ -30,7 +37,7 @@ export default function useApplicationData() {
 
   function deleteInterview(id, interview, transition) {
    
-    
+   
 
     const appointment = {
       ...state.appointments[id],
@@ -45,8 +52,15 @@ export default function useApplicationData() {
       url: `/api/appointments/${id}`,
       data: appointment
     }).then(() => {
+    
+     let days = getNumberSpots(appointments)
+     
+      setState({
+        ...state, 
+        appointments,
+        days,
+      })     
       
-      setState({...state,appointments})     
       
     }).catch(err => {
       console.log(err)
@@ -55,9 +69,12 @@ export default function useApplicationData() {
     })
  }
 
+
  function bookInterview(id, interview, transition) {
-    
+
+  
    
+  
   
   const appointment = {
     ...state.appointments[id],
@@ -73,14 +90,42 @@ export default function useApplicationData() {
     url: `/api/appointments/${id}`,
     data: appointment
   }).then(() => {
-    
-    setState({...state,appointments})     
+    let days = getNumberSpots(appointments)
+    setState({
+      ...state,
+      appointments,
+      days
+    })     
    
   }).catch(err => {
     console.log(err)
     transition(ERROR_SAVE, true)
   })
+
+
+  
+
 }
+const getNumberSpots = (appointments) => {
+  let days = [...state.days]
+  let dayIndex = days.findIndex((day) => day.name === state.day)
+  if (dayIndex === -1) {
+    console.log("Could not update day")
+    return days
+  }
+
+  const spotArray = days[dayIndex].appointments.filter(appointmentID => appointments[appointmentID].interview === null).length 
+  days[dayIndex].spots = spotArray
+ 
+  return days
+
+
+ }
+  
+
+
+
+
 return {
   state,
   setDay,

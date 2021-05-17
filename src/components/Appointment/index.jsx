@@ -8,6 +8,8 @@ import Status from "components/Appointment/status"
 import Confirm from "components/Appointment/confirm"
 import Error from "components/Appointment/error"
 
+
+
 import "components/Appointment/styles.scss";
 
 const EMPTY = "EMPTY";
@@ -23,8 +25,7 @@ const ERROR_DELETE = "ERROR_DELETE"
 
 export default function Appointment(props) {
 
-  
-  
+ 
 
    const { mode, transition, back } = UseVisualMode(
     props.interview ? SHOW : EMPTY
@@ -41,6 +42,9 @@ export default function Appointment(props) {
       interviewer
     };
     
+     
+
+     
     
     props.bookInterview(props.id,interview,transition)
     
