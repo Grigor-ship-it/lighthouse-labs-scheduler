@@ -47,9 +47,8 @@ export default function useApplicationData(props) {
       ...state.appointments,
       [id]: appointment
     };
-    axios({
-      method: "DELETE",
-      url: `/api/appointments/${id}`,
+    axios.delete(`/api/appointments/${id}`, {
+     
       data: appointment
     }).then(() => {
     
@@ -136,3 +135,8 @@ return {
 
 
 
+// axios({
+//   method: "DELETE",
+//   url: `/api/appointments/${id}`,
+//   data: appointment
+// })

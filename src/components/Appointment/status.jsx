@@ -12,7 +12,7 @@ return(
     src="images/status.png"
     alt="Loading"
   />
-  <h1 className="text--semi-bold">{props.message}</h1>
+  <h1 className="text--semi-bold" data-testid="test40">{props.message}</h1>
 </main>
 )
 }
